@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/sbl-commons/sbl-commons.iml" filepath="$PROJECT_DIR$/sbl-commons/sbl-commons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sbl-config/sbl-config.iml" filepath="$PROJECT_DIR$/sbl-config/sbl-config.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sbl-core/sbl-core.iml" filepath="$PROJECT_DIR$/sbl-core/sbl-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sbl-parent/sbl-parent.iml" filepath="$PROJECT_DIR$/sbl-parent/sbl-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sbl-web/sbl-web.iml" filepath="$PROJECT_DIR$/sbl-web/sbl-web.iml" />
+    </modules>
+  </component>
+</project>
