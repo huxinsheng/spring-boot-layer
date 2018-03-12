@@ -6,10 +6,10 @@ import com.learn.sbl.result.ResponseInfo;
 /**
  * @author HuXinsheng
  */
-public class RmsException extends RuntimeException {
+public class SblException extends RuntimeException {
     private ResponseInfo responseInfo;
 
-    public RmsException(ResponseInfo responseInfo) {
+    public SblException(ResponseInfo responseInfo) {
         this.responseInfo = responseInfo;
     }
 

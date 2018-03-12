@@ -1,6 +1,6 @@
 package com.learn.sbl.aop;
 
-import com.learn.sbl.exception.RmsException;
+import com.learn.sbl.exception.SblException;
 import com.learn.sbl.result.ResultBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +22,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public String handle(Exception e) {
-        if (e instanceof RmsException) {
-            RmsException rmsException = (RmsException) e;
+        if (e instanceof SblException) {
+            SblException rmsException = (SblException) e;
             return ResultBody.error(rmsException.getResponseInfo());
         } else {
             log.error("【系统异常】{}", e);
@@ -34,9 +34,9 @@ public class GlobalExceptionHandler {
 //    /**
 //     * 拦截业务异常
 //     */
-//    @ExceptionHandler(RmsException.class)
+//    @ExceptionHandler(SblException.class)
 //    @ResponseBody
-//    public ResultBody notFount(RmsException e) {
+//    public ResultBody notFount(SblException e) {
 //        return ResultBody.error(e.getResponseInfo());
 //    }
 }

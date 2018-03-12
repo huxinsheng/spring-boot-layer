@@ -8,7 +8,7 @@ import com.learn.sbl.result.ResponseInfo;
  *
  * @author HuXinsheng
  */
-public enum RmsExceptionEnum implements ResponseInfo {
+public enum SblExceptionEnum implements ResponseInfo {
     /**
      * 账号问题
      */
@@ -19,7 +19,7 @@ public enum RmsExceptionEnum implements ResponseInfo {
     private String code;
     private String message;
 
-    RmsExceptionEnum(String code, String message) {
+    SblExceptionEnum(String code, String message) {
         this.code = code;
         this.message = message;
     }

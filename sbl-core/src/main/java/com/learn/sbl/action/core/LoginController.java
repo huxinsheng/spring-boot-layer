@@ -1,8 +1,8 @@
 package com.learn.sbl.action.core;
 
 import com.learn.sbl.enums.RememberMeEnum;
-import com.learn.sbl.exception.RmsException;
-import com.learn.sbl.exception.RmsExceptionEnum;
+import com.learn.sbl.exception.SblException;
+import com.learn.sbl.exception.SblExceptionEnum;
 import com.learn.sbl.result.ResultBody;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -69,9 +69,9 @@ public class LoginController {
             //所以这一步在调用login(token)方法时,它会走到ShiroRealm.doGetAuthenticationInfo()方法中,具体验证方式详见此方法
             currentSubject.login(token);
         } catch (UnknownAccountException uae) {
-            throw new RmsException(RmsExceptionEnum.USER_NOT_EXISTED);
+            throw new SblException(SblExceptionEnum.USER_NOT_EXISTED);
         } catch (IncorrectCredentialsException ice) {
-            throw new RmsException(RmsExceptionEnum.USER_PWD_ERROR);
+            throw new SblException(SblExceptionEnum.USER_PWD_ERROR);
         } catch (LockedAccountException lae) {
             log.error("LockedAccountException验证未通过,账户已锁定");
         } catch (ExcessiveAttemptsException eae) {
