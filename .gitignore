@@ -13,7 +13,7 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
-
+.idea
 # Windows shortcuts
 *.lnk
 
@@ -45,3 +45,9 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*/target/
+/sbl-web/sbl-web.iml
+/sbl-parent/sbl-parent.iml
+/sbl-core/sbl-core.iml
+/sbl-config/sbl-config.iml
+/sbl-commons/sbl-commons.iml
