@@ -1,9 +1,10 @@
 package com.learn.sbl.security;
 
-import com.learn.sbl.cache.CacheService;
-import com.learn.sbl.model.UserModel;
+import com.learn.sbl.cache.core.CacheService;
+import com.learn.sbl.model.core.UserModel;
 import com.learn.sbl.service.core.RoleService;
 import com.learn.sbl.service.core.UserService;
+import com.learn.sbl.web.UserInfo;
 import com.learn.sbl.web.contants.WebConstants;
 import com.learn.sbl.web.utils.WebUtil;
 import org.apache.shiro.authc.AuthenticationException;
@@ -18,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+
+import java.util.Date;
 
 
 /**
@@ -63,9 +66,8 @@ public class ShiroRealm extends AuthorizingRealm {
         String account = (String) principalCollection.getPrimaryPrincipal();
         UserModel userModel = cacheService.selectUserByAccout(account);
         // 用户拥有的角色
-        authorizationInfo.addRole(userModel.getRoleName());
+        //authorizationInfo.addRole(userModel.getRoleName());
         // 用户拥有的权限
-        // TODO: 2017/9/27 暂时先写死 
         authorizationInfo.addStringPermission("user:list");
         authorizationInfo.addStringPermission("user:add");
         return authorizationInfo;
@@ -83,6 +85,17 @@ public class ShiroRealm extends AuthorizingRealm {
         UserModel userModel = cacheService.selectUserByAccout(account);
         // 账号存在
         if (!StringUtils.isEmpty(userModel)) {
+            UserInfo userInfo = userModel.getLoginInfo();
+            if (null == userInfo) {
+                userInfo = new UserInfo();
+                userInfo.setId(userModel.getId());
+                userInfo.setName(userModel.getName());
+                userInfo.setLoginId(userModel.getLoginId());
+                userInfo.setLoginTime(new Date());
+                userInfo.setIp(WebUtil.getIpAddr());
+            }
+            WebUtil.getShiroSession().setAttribute(WebConstants._USER, userInfo);
+            userService.addLoginInfo(userInfo);
             return new SimpleAuthenticationInfo(account, userModel.getPassword(), userModel.getName());
         }
         return null;

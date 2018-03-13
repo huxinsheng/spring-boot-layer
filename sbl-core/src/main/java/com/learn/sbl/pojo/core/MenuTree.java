@@ -1,4 +1,4 @@
-package com.learn.sbl.pojo.common;
+package com.learn.sbl.pojo.core;
 
 import lombok.Data;
 

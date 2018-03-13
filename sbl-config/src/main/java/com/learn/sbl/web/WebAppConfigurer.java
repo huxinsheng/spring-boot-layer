@@ -22,13 +22,17 @@ public class WebAppConfigurer extends WebMvcConfigurerAdapter {
 
         List<String> ajaxExcludedUrls = new ArrayList<>();
         ajaxExcludedUrls.add("/core/res");
+        ajaxExcludedUrls.add("/login");
+        ajaxExcludedUrls.add("/captcha");
 
         List<String> excludedUrls = new ArrayList<>();
         excludedUrls.add("/core/res");
+        excludedUrls.add("/login");
+        excludedUrls.add("/captcha");
 
         interceptor.setAjaxExcludedUrls(ajaxExcludedUrls);
         interceptor.setExcludedUrls(excludedUrls);
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(interceptor).addPathPatterns("/**");
         super.addInterceptors(registry);
     }
 }

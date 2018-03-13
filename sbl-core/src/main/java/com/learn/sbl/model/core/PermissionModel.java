@@ -1,4 +1,4 @@
-package com.learn.sbl.model;
+package com.learn.sbl.model.core;
 
 import com.alibaba.fastjson.JSON;
 import lombok.Data;

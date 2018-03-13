@@ -2,15 +2,11 @@ package com.learn.sbl.web.interceptor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.learn.sbl.result.ResponseInfo;
-import com.learn.sbl.result.ResultBody;
 import com.learn.sbl.web.HttpContext;
-import com.learn.sbl.web.HttpSession;
 import com.learn.sbl.web.annotation.Login;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
+import com.learn.sbl.web.contants.WebConstants;
+import com.learn.sbl.web.utils.WebUtil;
 import org.springframework.core.MethodParameter;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -18,8 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * @author HuXinsheng
+ */
 public class LoginInterceptor implements HandlerInterceptor {
     private List<String> excludedUrls;
     private List<String> ajaxExcludedUrls;
@@ -52,9 +52,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                 }
             }
             if (requireLogin) {
-                Subject subject = SecurityUtils.getSubject();
-                Session session = subject.getSession();
-                Object userId = session.getAttribute(HttpSession.USER_SESSION_KEY);
+                Object userId = WebUtil.getShiroSession().getAttribute(WebConstants._USER);
                 if (userId == null) {
                     ResponseBody responseBody = method.getMethodAnnotation(ResponseBody.class);
                     if (responseBody == null) {
@@ -79,9 +77,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                     return false;
                 }
             } else {
-                Subject subject = SecurityUtils.getSubject();
-                Session session = subject.getSession();
-                Object userId = session.getAttribute(HttpSession.USER_SESSION_KEY);
+                Object userId = WebUtil.getShiroSession().getAttribute(WebConstants._USER);
                 if (userId == null) {
                     // 得到请求URL
                     String url = request.getRequestURI();

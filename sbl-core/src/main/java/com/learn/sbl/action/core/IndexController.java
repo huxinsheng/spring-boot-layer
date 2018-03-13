@@ -2,7 +2,7 @@ package com.learn.sbl.action.core;
 
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
-import com.learn.sbl.cache.CacheService;
+import com.learn.sbl.cache.core.CacheService;
 import com.learn.sbl.result.ResultBody;
 import com.learn.sbl.web.utils.WebUtil;
 import io.swagger.annotations.ApiOperation;

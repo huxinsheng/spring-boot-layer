@@ -1,8 +1,8 @@
 # ====================basis.connection====================
 basis.connection:
-  url: jdbc:mysql://192.168.1.134:3306/wxsp_db?useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=true
+  url: jdbc:mysql://localhost:3306/sbl_db?useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=true
   username: root
-  password: lvban.321
+  password: 8888
 
 
 # =======================basis.druid======================
@@ -48,7 +48,7 @@ basis.druid:
   # 访问的用户名
   loginUsername: root
   # 访问的密码
-  loginPassword: lvban.321
+  loginPassword: 8888
 
 
 # ====================MybatisPlus====================

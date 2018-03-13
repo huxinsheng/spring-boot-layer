@@ -1,4 +1,4 @@
-package com.learn.sbl.filter;
+package com.learn.sbl.web.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

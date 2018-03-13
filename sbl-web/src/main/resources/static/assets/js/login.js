@@ -5,14 +5,15 @@ layui.config({
     router = layui.router,
     md = layui.md5,
     $ = layui.jquery;
-
-
+  
+  
   //登录按钮
   form.on("submit(login)", function (data) {
     var _that = $(this);
     _that.text("登录中...").attr("disabled", "disabled").addClass("layui-disabled");
     //密码md5
-    var pwd = $.md5("00");
+    var pwd = $.md5(data.field['password']);
+    data.field['password'] = pwd;
     router.post({
         url: "/login",
         data: data.field,
@@ -27,7 +28,7 @@ layui.config({
           }
         },
         error: function () {
-          $('#captcha').attr('src','/captcha' + '?' + Math.random());
+          $('#captcha').attr('src', '/captcha' + '?' + Math.random());
           _that.text("登录").removeAttr("disabled").removeClass("layui-disabled");
         }
       }
@@ -36,6 +37,6 @@ layui.config({
   });
 });
 
-function refreshCaptcha() {
+function refreshCaptcha () {
 
 }

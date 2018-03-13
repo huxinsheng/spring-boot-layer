@@ -73,7 +73,6 @@
 /**重写header的logo部分颜色*/
 .layui-layout-admin .layui-logo {
     width: 220px;
-    background-color: #4E5465 !important;
     color: #fff;
     font-size: 20px;
     font-family: Myriad Pro, Helvetica Neue, Arial, Helvetica, sans-serif;
@@ -351,6 +350,7 @@
     max-width: 160px;
     text-overflow: ellipsis;
     overflow: hidden;
+    color:#000;
     vertical-align: top;
 }
 

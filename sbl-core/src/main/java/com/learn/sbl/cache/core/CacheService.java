@@ -1,14 +1,12 @@
-package com.learn.sbl.cache;
+package com.learn.sbl.cache.core;
 
 import com.learn.sbl.mapper.core.UserMapper;
-import com.learn.sbl.model.UserModel;
-import com.learn.sbl.pojo.common.MenuTree;
+import com.learn.sbl.model.core.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,10 +25,10 @@ public class CacheService {
         return userMapper.selectOneUser(paramsMap);
     }
 
-    @Cacheable(value = "usercache", key = "'selectUserByAccout:account_'+#account")
-    public UserModel selectUserByAccout(String account) {
+    @Cacheable(value = "usercache", key = "'selectUserByAccout:account_'+#loginId")
+    public UserModel selectUserByAccout(String loginId) {
         Map<String,Object> paramsMap = new HashMap<>(5);
-        paramsMap.put("account",account);
+        paramsMap.put("loginId",loginId);
         UserModel userModel = userMapper.selectOneUser(paramsMap);
         return userModel;
     }

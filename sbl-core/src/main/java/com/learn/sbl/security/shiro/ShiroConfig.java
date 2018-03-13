@@ -2,11 +2,14 @@ package com.learn.sbl.security.shiro;
 
 
 import com.learn.sbl.security.ShiroRealm;
+import org.apache.shiro.codec.Base64;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
@@ -30,11 +33,37 @@ public class ShiroConfig {
         return sessionManager;
     }
 
+    /**
+     * cookie管理器;
+     * @return
+     */
+    @Bean
+    public CookieRememberMeManager rememberMeManager(){
+        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+        byte[] cipherKey = Base64.decode("6ZmI6I2j5Y+R5aSn5ZOlAA==");
+        cookieRememberMeManager.setCipherKey(cipherKey);
+        cookieRememberMeManager.setCookie(rememberMeCookie());
+        return cookieRememberMeManager;
+    }
+
+    @Bean
+    public SimpleCookie rememberMeCookie(){
+        //这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
+        SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
+        //如果httyOnly设置为true，则客户端不会暴露给客户端脚本代码，使用HttpOnly cookie有助于减少某些类型的跨站点脚本攻击；
+        simpleCookie.setHttpOnly(true);
+        //记住我cookie生效时间,默认30天 ,单位秒：60 * 60 * 24 * 30
+        simpleCookie.setMaxAge(259200);
+
+        return simpleCookie;
+    }
+
     @Bean(name = "securityManager")
     public DefaultWebSecurityManager securityManager(ShiroRealm shiroRealm, SessionManager sessionManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(shiroRealm);
         securityManager.setSessionManager(sessionManager);
+        securityManager.setRememberMeManager(rememberMeManager());
         return securityManager;
     }
 
@@ -90,6 +119,8 @@ public class ShiroConfig {
         filterMap.put("/webjars/**", "anon");
         filterMap.put("/static/**", "anon");
         filterMap.put("/captcha", "anon");
+        filterMap.put("/index", "user");
+        filterMap.put("/", "user");
         // <!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
         // <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
         filterMap.put("/**", "authc");

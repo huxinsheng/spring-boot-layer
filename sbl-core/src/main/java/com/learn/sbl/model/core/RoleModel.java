@@ -1,7 +1,6 @@
 package com.learn.sbl.model.core;
 
 import com.alibaba.fastjson.JSON;
-import com.learn.sbl.model.MenuModel;
 import lombok.Data;
 
 import java.util.List;
