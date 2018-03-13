@@ -9,9 +9,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="/assets/iartisan/css/font/font.css" media="all"/>
-    <link rel="stylesheet" href="/assets/iartisan/plugins/layui/css/layui.css" media="all"/>
-    <link rel="stylesheet" href="/assets/iartisan/css/public.css" media="all"/>
+    <link rel="stylesheet" href="/static/assets/css/font/font.css" media="all"/>
+    <link rel="stylesheet" href="/static/assets/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/static/assets/css/public.css" media="all"/>
 </head>
 <body class="childrenBody" style="background-color: #f2f2f2">
 <blockquote class="layui-elem-quote layui-bg-green" style="border-radius: 6px;">

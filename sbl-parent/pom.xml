@@ -133,16 +133,16 @@
             <artifactId>jedis</artifactId>
             <version>2.9.0</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.sitemesh</groupId>
             <artifactId>sitemesh</artifactId>
             <version>${sitemesh.version}</version>
-        </dependency>
-        <dependency>
+        </dependency>-->
+        <!--<dependency>
             <groupId>org.iartisan</groupId>
             <artifactId>iartisan-runtime</artifactId>
             <version>${iartisan.runtime.version}</version>
-        </dependency>
+        </dependency>-->
         <!-- https://mvnrepository.com/artifact/com.github.axet/kaptcha -->
         <dependency>
             <groupId>com.github.axet</groupId>

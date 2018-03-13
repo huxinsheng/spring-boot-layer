@@ -4,6 +4,8 @@ import com.learn.sbl.cache.CacheService;
 import com.learn.sbl.model.UserModel;
 import com.learn.sbl.service.core.RoleService;
 import com.learn.sbl.service.core.UserService;
+import com.learn.sbl.web.contants.WebConstants;
+import com.learn.sbl.web.utils.WebUtil;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -79,7 +81,6 @@ public class ShiroRealm extends AuthorizingRealm {
         // 查询用户信息
         // 实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
         UserModel userModel = cacheService.selectUserByAccout(account);
-
         // 账号存在
         if (!StringUtils.isEmpty(userModel)) {
             return new SimpleAuthenticationInfo(account, userModel.getPassword(), userModel.getName());

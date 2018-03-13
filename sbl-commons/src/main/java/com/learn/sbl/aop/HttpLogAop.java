@@ -25,7 +25,7 @@ public class HttpLogAop {
 
     private ThreadLocal<Long> startTime = new ThreadLocal<>();
 
-    @Pointcut("execution(public * com.hxs.springbootsample.core.web.action.*.*(..))")
+    @Pointcut("execution(public * com.learn.sbl.action.*.*(..))")
     public void log() {
     }
 

@@ -2,13 +2,16 @@ package com.learn.sbl.action.core;
 
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
+import com.learn.sbl.cache.CacheService;
+import com.learn.sbl.result.ResultBody;
+import com.learn.sbl.web.utils.WebUtil;
 import io.swagger.annotations.ApiOperation;
-import org.iartisan.runtime.web.utils.WebUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -22,6 +25,11 @@ import java.io.IOException;
 @Controller
 public class IndexController {
 
+    @Autowired
+    private Producer producer;
+
+    @Autowired
+    private CacheService cacheService;
 
     private static final Logger log = LoggerFactory.getLogger(IndexController.class);
 
@@ -36,8 +44,6 @@ public class IndexController {
         return "/index";
     }
 
-    @Autowired
-    private Producer producer;
 
     @GetMapping(value = "captcha")
     public void captcha(HttpServletResponse response) throws IOException {
@@ -53,5 +59,17 @@ public class IndexController {
         ServletOutputStream out = response.getOutputStream();
         ImageIO.write(image, "jpg", out);
         out.flush();
+    }
+
+    @GetMapping(value = "main")
+    public String main() {
+        return "/main";
+    }
+
+    @ResponseBody
+    @GetMapping("getMenus")
+    public String getMenus() {
+        //cacheService.selectCurrentUserMenus();
+        return ResultBody.success();
     }
 }

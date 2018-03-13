@@ -2,7 +2,7 @@ layui.define(['layer', 'form', 'element', 'upload', 'util', 'table'], function (
 
     var $ = layui.jquery, layer = layui.layer, table = layui.table;
 
-    var success_code = "000000", err_msg = "请求异常，请重试";
+    var success_code = "00000", err_msg = "请求异常，请重试";
 
     var router = {
 

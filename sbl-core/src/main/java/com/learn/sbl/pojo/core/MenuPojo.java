@@ -1,10 +1,11 @@
-package com.learn.sbl.pojo.common;
+package com.learn.sbl.pojo.core;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import lombok.Data;
+import org.apache.ibatis.type.Alias;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -15,9 +16,10 @@ import java.util.Date;
 /**
  * @author Huxinsheng
  */
-@TableName(value = "sys_user")
 @Data
-public class UserPojo {
+@Alias("menu")
+@TableName(value = "sys_menu")
+public class MenuPojo {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -26,45 +28,31 @@ public class UserPojo {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
-     * 登录账号(邮箱格式)
-     */
-    @Email(message = "账号(邮箱)格式不正确")
-    @NotBlank(message = "登录账号不能为空")
-    private String account;
-    /**
-     * 密码
-     */
-    @NotBlank(message = "密码不能为空")
-    @Size(min = 6, max = 20, message = "密码长度为6-20")
-    private String password;
-    /**
      * 姓名
      */
-    @NotBlank(message = "姓名不能为空")
+    @NotBlank(message = "菜单名称不能为空")
     private String name;
     /**
-     * 性别(1：男，2：女)
+     * 父菜单id
      */
-    @NotNull(message = "性别不能为空")
-    private Integer sex;
+    @TableField(value = "parent_id")
+    private Integer parentId;
     /**
-     * 生日
+     * 菜单级别
      */
-    private String birthday;
+    private Integer levels;
     /**
-     * 电话
+     * 菜单地址
      */
-    private String phone;
+    private String url;
     /**
-     * 角色id
+     * 菜单图标
      */
-    @TableField("role_id")
-    private Integer roleId;
+    private Integer icon;
     /**
-     * 部门id
+     * 授权(多个用逗号分隔，如：user:list,user:create)
      */
-    @TableField("dept_id")
-    private Integer deptId;
+    private Integer perms;
     /**
      * 状态(1：启用  2：冻结  3：删除）
      */

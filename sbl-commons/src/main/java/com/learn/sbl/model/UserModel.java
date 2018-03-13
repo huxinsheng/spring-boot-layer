@@ -1,8 +1,10 @@
 package com.learn.sbl.model;
 
+import com.learn.sbl.pojo.common.MenuTree;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author Huxinsheng
@@ -23,4 +25,5 @@ public class UserModel implements Serializable {
     private Integer status;
     private Long createTime;
     private String createUserName;
+    List<MenuTree> menuTrees;
 }

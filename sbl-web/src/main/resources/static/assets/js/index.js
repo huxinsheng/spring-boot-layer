@@ -1,6 +1,6 @@
 var $, tab, menus, layer,form,element;
 layui.config({
-    base: "/assets/iartisan/plugins/lib/"
+    base: "/static/assets/plugins/lib/"
 }).use(['form', 'element', 'layer', 'jquery', 'bodyTab'], function () {
     $ = layui.$, element = layui.element,
     layer = parent.layer === undefined ? layui.layer : top.layer;

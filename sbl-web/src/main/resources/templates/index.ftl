@@ -12,16 +12,16 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <link rel="icon" href="favicon.ico">
-    <link rel="stylesheet" href="/static/css/font/font.css" media="all"/>
-    <link rel="stylesheet" href="/static/plugins/layui/css/layui.css" media="all"/>
-    <link rel="stylesheet" href="/static/css/index.css" media="all"/>
+    <link rel="stylesheet" href="/static/assets/css/font/font.css" media="all"/>
+    <link rel="stylesheet" href="/static/assets/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/static/assets/css/index.css" media="all"/>
 </head>
 
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <!-- 头部 -->
     <div class="layui-header">
-        <div class="layui-logo"><img src="/assets/iartisan/images/face.jpg"/>${_title!''}</div>
+        <div class="layui-logo"><img src="/static/assets/images/face.jpg"/>${_title!''}</div>
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item">
                 <a href="javascript:;" id="switchNav"><i class="layui-icon">&#xe668;</i></a>
@@ -33,7 +33,7 @@
                 <a href="javascript:;" class="about"><i class="layui-icon">&#xe65f;</i></a>
             </li>
             <li class="layui-nav-item" id="userInfo">
-                <a href="javascript:;"><img src="/assets/iartisan/images/face.jpg" class="layui-nav-img userAvatar"
+                <a href="javascript:;"><img src="/static/assets/images/face.jpg" class="layui-nav-img userAvatar"
                                             width="35" height="35"><cite
                         class="adminName">${_user.userName!''}</cite></a>
                 <dl class="layui-nav-child">
@@ -100,9 +100,9 @@
     <div class="site-mobile-shade"></div>
 </div>
 
-<script type="text/javascript" src="/static/plugins/layui/layui.js"></script>
-<script type="text/javascript" src="/static/js/index.js"></script>
-<script type="text/javascript" src="/static/plugins/lib/cache.js"></script>
+<script type="text/javascript" src="/static/assets/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/static/assets/js/index.js"></script>
+<script type="text/javascript" src="/static/assets/plugins/lib/cache.js"></script>
 </body>
 
 </html>
