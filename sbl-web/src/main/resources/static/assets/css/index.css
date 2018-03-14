@@ -148,8 +148,8 @@
 
     .layui-header .layui-logo {
         left: 54px;
-        text-align: left;
-        color: #4a4a4a;
+        text-align: center;
+        color: #fff;
         background-color: transparent;
     }
 
@@ -268,6 +268,7 @@
     box-sizing: border-box;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
     margin-top: 8px;
+    z-index:9;
     /*border-bottom: 1px solid #5FB878;*/
 }
 

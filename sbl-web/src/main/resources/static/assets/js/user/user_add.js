@@ -1,5 +1,5 @@
 layui.config({
-    base: "/assets/iartisan/plugins/lib/"
+    base: "/static/assets/plugins/lib/"
 }).use(['router'], function () {
 
     var router = layui.router;

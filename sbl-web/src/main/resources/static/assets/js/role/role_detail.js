@@ -1,6 +1,6 @@
 var ztree = "";
 layui.config({
-    base: "/assets/iartisan/plugins/lib/"
+    base: "/static/assets/plugins/lib/"
 }).use(['router'], function () {
     var $ = layui.jquery, form = layui.form, router = layui.router;
 

@@ -26,38 +26,38 @@ public class ResultBody {
      */
     private static final String DATA = "data";
 
-    public static String success() {
+    public static Object success() {
         return result(ResponseInfoEnum.SUCCESS, null);
     }
 
-    public static String success(Object data) {
+    public static Object success(Object data) {
         return result(ResponseInfoEnum.SUCCESS, data);
     }
 
-    public static String success(ResponseInfo response) {
+    public static Object success(ResponseInfo response) {
         return result(response, null);
     }
 
-    public static String error() {
+    public static Object error() {
         return result(ResponseInfoEnum.ERROR, null);
     }
 
-    public static String error(String message) {
+    public static Object error(String message) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(CODE, ResponseInfoEnum.ERROR.getCode());
         jsonObject.put(MESSAGE, message);
-        return JSON.toJSONString(jsonObject, SerializerFeature.DisableCircularReferenceDetect);
+        return jsonObject;
     }
 
-    public static String error(ResponseInfo response) {
+    public static Object error(ResponseInfo response) {
         return result(response, null);
     }
 
-    public static String result(ResponseInfo response, Object data) {
+    public static Object result(ResponseInfo response, Object data) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(CODE, response.getCode());
         jsonObject.put(MESSAGE, response.getMessage());
         jsonObject.put(DATA, data);
-        return JSON.toJSONString(jsonObject, SerializerFeature.DisableCircularReferenceDetect);
+        return jsonObject;
     }
 }

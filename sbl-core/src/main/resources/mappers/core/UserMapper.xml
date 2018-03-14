@@ -17,7 +17,7 @@
         <collection property="roles" column="id" select="com.learn.sbl.mapper.core.UserRoleMapper.findByUserId"/>
     </resultMap>
 
-    <select id="selectUserList" resultMap="BaseResultMap">
+    <select id="selectUserList" resultType="com.learn.sbl.model.core.UserModel">
 		select
         id,loginId,name,password,email,disabled,creator,createTime,updateBy,updateTime,isFirstLogin
         FROM t_sys_user
@@ -44,7 +44,7 @@
           (#{id},#{loginId},#{name},#{ip},now())
     </insert>
 
-    <select id="getLoginInfoByLoginId" resultType="String">
+    <select id="getLoginInfoByLoginId" resultType="com.learn.sbl.web.UserInfo">
         SELECT
           a.id,
           a.`loginId`,

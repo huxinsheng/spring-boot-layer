@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
-    public String handle(Exception e) {
+    public Object handle(Exception e) {
         if (e instanceof SblException) {
             SblException rmsException = (SblException) e;
             return ResultBody.error(rmsException.getResponseInfo());

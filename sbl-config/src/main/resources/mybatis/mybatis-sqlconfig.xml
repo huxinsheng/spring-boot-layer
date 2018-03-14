@@ -40,7 +40,11 @@
         <setting name="jdbcTypeForNull" value="OTHER"/>
         <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
         <!--打印sql语句-->
-        <setting name="logPrefix" value="dao."/>
+        <setting name="logImpl" value="LOG4J2"/>
+        <setting name="logPrefix" value="mapper."/>
     </settings>
-
+    <plugins>
+        <!-- 性能拦截器，兼打印sql，不建议生产环境配置-->
+        <plugin interceptor="com.baomidou.mybatisplus.plugins.PerformanceInterceptor"></plugin>
+    </plugins>
 </configuration>

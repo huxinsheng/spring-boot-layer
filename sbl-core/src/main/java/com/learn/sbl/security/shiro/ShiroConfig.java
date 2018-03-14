@@ -2,6 +2,7 @@ package com.learn.sbl.security.shiro;
 
 
 import com.learn.sbl.security.ShiroRealm;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -153,6 +154,11 @@ public class ShiroConfig {
      */
     @Bean
     public ShiroRealm shiroDbRealm() {
-        return new ShiroRealm();
+        ShiroRealm shiroRealm = new ShiroRealm();
+        HashedCredentialsMatcher passwordMatcher = new HashedCredentialsMatcher();
+        passwordMatcher.setHashAlgorithmName("MD5");
+        passwordMatcher.setHashIterations(2);
+        shiroRealm.setCredentialsMatcher(passwordMatcher);
+        return shiroRealm;
     }
 }

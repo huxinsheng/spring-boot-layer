@@ -1,5 +1,5 @@
 layui.config({
-    base: "/assets/iartisan/plugins/lib/"
+    base: "/static/assets/plugins/lib/"
 }).use(['jquery', 'router', 'table', 'layer'], function () {
     var router = layui.router, $ = layui.jquery, table = layui.table,
         layer = parent.layer === undefined ? layui.layer : top.layer,

@@ -1,7 +1,9 @@
 package com.learn.sbl.model.core;
 
 import com.alibaba.fastjson.JSON;
+import com.learn.sbl.model.BaseModel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
@@ -9,7 +11,8 @@ import java.util.List;
  * @author kevin
  */
 @Data
-public class MenuModel {
+@EqualsAndHashCode(callSuper = false)
+public class MenuModel extends BaseModel {
     /**
      * 菜单主键Id
      */
@@ -47,14 +50,6 @@ public class MenuModel {
      */
     private String parent;
     /**
-     * 是否叶子节点
-     */
-    private boolean leaf;
-    /**
-     * 是否展开
-     */
-    private boolean expanded;
-    /**
      * 子菜单列表
      */
     private List<MenuModel> subMenus;
@@ -62,17 +57,9 @@ public class MenuModel {
      * 菜单拥有权限列表
      */
     private List<PermissionModel> permissions;
-    /**
-     * 是否选中
-     */
-    private boolean checked;
-
-    public String toJsonstring() {
-        return JSON.toJSONString(this);
-    }
 
     @Override
-    public String toString() {
+    public String toJsonstring() {
         return JSON.toJSONString(this);
     }
 }

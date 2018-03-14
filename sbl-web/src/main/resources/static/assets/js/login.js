@@ -18,13 +18,14 @@ layui.config({
         url: "/login",
         data: data.field,
         success: function (res) {
-          if (res.code === '00000') {
+          console.log(res);
+          if (res.code === "000000") {
             //请求成功后，写入 access_token
             layui.data('user_access_token', {
               key: 'user_info'
-              , value: JSON.stringify(res.data)
+              , value: res.dataObject
             });
-            location.href = '/';
+            location.href = res.message;
           }
         },
         error: function () {

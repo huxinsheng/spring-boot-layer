@@ -1,8 +1,8 @@
 var $, tab, menus, layer,form,element;
 layui.config({
     base: "/static/assets/plugins/lib/"
-}).use(['form', 'element', 'layer', 'jquery', 'bodyTab'], function () {
-    $ = layui.$, element = layui.element,
+}).use(['form', 'element', 'layer','router', 'jquery', 'bodyTab'], function () {
+    $ = layui.$, element = layui.element,router = layui.router,
     layer = parent.layer === undefined ? layui.layer : top.layer;
     tab = layui.bodyTab({
         openTabNum: "10",  //最大可打开窗口数量
@@ -42,10 +42,13 @@ layui.config({
     //加载左侧菜单
 
     function getLeftMenus() {
-        $.get(tab.tabConfig.url, function (data) {
-            menus = data.dataList;
-            tab.render();
-        })
+      router.get({
+        url: tab.tabConfig.url,
+        success: function (res) {
+          menus = res.dataList;
+          tab.render();
+        }
+      });
     }
 
     getLeftMenus();

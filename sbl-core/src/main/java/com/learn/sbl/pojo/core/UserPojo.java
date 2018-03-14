@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.learn.sbl.pojo.BasePojo;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotNull;
 
@@ -15,6 +16,7 @@ import javax.validation.constraints.NotNull;
  */
 @TableName(value = "t_sys_user")
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class UserPojo extends BasePojo {
     private static final long serialVersionUID = 1L;
 

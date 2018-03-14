@@ -2,9 +2,9 @@ package com.learn.sbl.model.core;
 
 import com.alibaba.fastjson.JSON;
 import com.learn.sbl.model.BaseModel;
-import com.learn.sbl.pojo.core.MenuTree;
 import com.learn.sbl.web.UserInfo;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,6 +13,7 @@ import java.util.List;
  * @author Huxinsheng
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class UserModel extends BaseModel implements Serializable {
     private static final long serialVersionUID = 1L;
 

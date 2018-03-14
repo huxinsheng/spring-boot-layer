@@ -1,6 +1,7 @@
 package com.learn.sbl.security;
 
-import com.learn.sbl.cache.core.CacheService;
+import com.learn.sbl.model.core.MenuModel;
+import com.learn.sbl.model.core.MenuTree;
 import com.learn.sbl.model.core.UserModel;
 import com.learn.sbl.service.core.RoleService;
 import com.learn.sbl.service.core.UserService;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -36,13 +38,6 @@ public class ShiroRealm extends AuthorizingRealm {
     @Autowired
     @Lazy
     private RoleService roleService;
-
-    @Autowired
-    /**
-     * shiro初始化的早，用到的bean都会在cache初始化之前被初始化，需要为shiro使用到的bean加@Lazy，否则cache不起效
-     */
-    @Lazy
-    private CacheService cacheService;
 
     /**
      * 授权(验证权限时调用)
@@ -64,7 +59,7 @@ public class ShiroRealm extends AuthorizingRealm {
         //从principalCollection获取主身份信息
         //将getPrimaryPrincipal()返回的值强制转换为真实身份信息【在doGetAuthenticationInfo()认证通过填充到SimpleAuthenticationInfo中的身份信息】
         String account = (String) principalCollection.getPrimaryPrincipal();
-        UserModel userModel = cacheService.selectUserByAccout(account);
+        UserModel userModel = userService.selectUserByAccout(account);
         // 用户拥有的角色
         //authorizationInfo.addRole(userModel.getRoleName());
         // 用户拥有的权限
@@ -82,7 +77,7 @@ public class ShiroRealm extends AuthorizingRealm {
         String account = (String) authenticationToken.getPrincipal();
         // 查询用户信息
         // 实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
-        UserModel userModel = cacheService.selectUserByAccout(account);
+        UserModel userModel = userService.selectUserByAccout(account);
         // 账号存在
         if (!StringUtils.isEmpty(userModel)) {
             UserInfo userInfo = userModel.getLoginInfo();
@@ -94,10 +89,15 @@ public class ShiroRealm extends AuthorizingRealm {
                 userInfo.setLoginTime(new Date());
                 userInfo.setIp(WebUtil.getIpAddr());
             }
+
+            List<MenuTree> trees = userService.selectUserMenusByUserId(userModel.getId());
+            userInfo.setMenus(trees);
             WebUtil.getShiroSession().setAttribute(WebConstants._USER, userInfo);
             userService.addLoginInfo(userInfo);
             return new SimpleAuthenticationInfo(account, userModel.getPassword(), userModel.getName());
         }
         return null;
     }
+
+
 }

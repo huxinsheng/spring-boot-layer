@@ -4,6 +4,7 @@ import com.google.code.kaptcha.Constants;
 import com.learn.sbl.enums.RememberMeEnum;
 import com.learn.sbl.exception.SblException;
 import com.learn.sbl.exception.SblExceptionEnum;
+import com.learn.sbl.result.Result;
 import com.learn.sbl.result.ResultBody;
 import com.learn.sbl.web.utils.WebUtil;
 import io.swagger.annotations.ApiImplicitParam;
@@ -14,34 +15,24 @@ import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author HuXinsheng
  */
-@Controller
+@RestController
 public class LoginController {
-
 
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
+    @Value("${iartisan.admin.authenticate.success:index}")
+    private String authenticateSuccessPage;
 
-
-    /**
-     * 登录页面
-     *
-     * @return
-     */
-    @ApiOperation(value = "进入登录页面", notes = "未登录访问进入登录页面")
-    @GetMapping(value = "/login")
-    public String login() {
-        return "/login";
-    }
+    @Value("${iartisan.admin.authenticate.error:login}")
+    private String authenticateErrorPage;
 
     /**
      * ajax登录请求
@@ -55,20 +46,24 @@ public class LoginController {
     })
     @PostMapping(value = "/login")
     @ResponseBody
-    public String submitLogin(@RequestParam(value = "account") String account,
+    public Object submitLogin(@RequestParam(value = "account") String account,
                               @RequestParam(value = "password") String password,
                               @RequestParam(value = "vercode") String vercode,
                               @RequestParam(value = "remember", required = false) String remember) {
+        Result result = new Result();
         //判断用户名和密码是否正确
         if (StringUtils.isEmpty(account) || StringUtils.isEmpty(password)) {
-            return ResultBody.error("用户名或者密码不能为空!");
+            result.setMessage("用户名或者密码不能为空!");
+            return result;
         }
-        if (StringUtils.isEmpty(vercode) ) {
-            return ResultBody.error("验证码不能为空!");
+        if (StringUtils.isEmpty(vercode)) {
+            result.setMessage("验证码不能为空!");
+            return result;
         }
-        String text = (String)WebUtil.getShiroSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
-        if(!vercode.equalsIgnoreCase(text)){
-            return ResultBody.error("验证码输入错误!");
+        String text = (String) WebUtil.getShiroSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
+        if (!vercode.equalsIgnoreCase(text)) {
+            result.setMessage("验证码输入错误!");
+            return result;
         }
         UsernamePasswordToken token = new UsernamePasswordToken(account, password);
         if (RememberMeEnum.ON.getRemark().equals(remember)) {
@@ -91,27 +86,20 @@ public class LoginController {
             throw new SblException(SblExceptionEnum.USER_PWD_ERROR);
         } catch (LockedAccountException lae) {
             WebUtil.clearKaptcha();
-            return ResultBody.error("验证未通过,账户已锁定!");
+            result.setMessage("验证未通过,账户已锁定!");
+            return result;
         } catch (ExcessiveAttemptsException eae) {
             WebUtil.clearKaptcha();
-            return ResultBody.error("对用户[" + account + "]进行登录验证..验证未通过,错误次数过多");
+            result.setMessage("对用户[" + account + "]进行登录验证..验证未通过,错误次数过多");
+            return result;
         }
         if (currentSubject.isAuthenticated()) {
             WebUtil.clearKaptcha();
             log.info("用户[" + account + "]登录认证通过(这里可以进行一些认证通过后的一些系统参数初始化操作)");
-            return ResultBody.success(token);
+            result.setDataObject(token);
+            result.setMessage(authenticateSuccessPage);
+            return result;
         }
         return null;
-    }
-
-    /**
-     * 退出
-     *
-     * @return
-     */
-    @GetMapping(value = "/logout")
-    public void logout() {
-        //退出
-        SecurityUtils.getSubject().logout();
     }
 }

@@ -1,7 +1,15 @@
 package com.learn.sbl.web;
 
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.support.config.FastJsonConfig;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.learn.sbl.web.interceptor.LoginInterceptor;
+import com.learn.sbl.web.interceptor.SessionArgumentResolver;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -34,5 +42,25 @@ public class WebAppConfigurer extends WebMvcConfigurerAdapter {
         interceptor.setExcludedUrls(excludedUrls);
         registry.addInterceptor(interceptor).addPathPatterns("/**");
         super.addInterceptors(registry);
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        super.addArgumentResolvers(argumentResolvers);
+        argumentResolvers.add(new SessionArgumentResolver());
+    }
+
+    @Override
+
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        super.configureMessageConverters(converters);
+
+        FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
+        FastJsonConfig fastJsonConfig = new FastJsonConfig();
+        fastJsonConfig.setSerializerFeatures(
+                SerializerFeature.PrettyFormat
+        );
+        fastConverter.setFastJsonConfig(fastJsonConfig);
+        converters.add(fastConverter);
     }
 }
